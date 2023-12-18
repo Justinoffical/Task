@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        a {
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #userDetails {
+            display: none;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #userImage {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        #userForm div {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello Forelder</h1>
+    <a href="/loginForm.html">Logout</a>
+
+ 
+    <h1>ForelderTable</h1>
+    <table id="ForelderTable">
+        <thead>
+            <tr>
+                <th>Forelder</th>
+                <th>Barn</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div id="userDetails">
+        <h1>Barn Details</h1>
+        <img id="userImage" src="/img/profile.webp" alt="User's Picture" />
+        <form id="userForm" action='/userSd' method="POST">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" readonly />
+            </div>
+            <div>
+                <label for="firstname">First Name:</label>
+                <input type="text" name="firstname" id="firstname" readonly/>
+            </div>
+            <div>
+                <label for="lastname">Last Name:</label>
+                <input type="text" name="lastname" id="lastname" readonly/>
+            </div>
+            <div>
+                <label for="cell">Cell:</label>
+                <input type="text" name="cell" id="cell" readonly/>
+            </div>
+            <button type="button" id="cancel">Close</button>
+        </form>
+    </div>
+    <script>
+        async function getForelder() {
+            let response = await fetch('/forelder'); 
+            let kompaniData = await response.json();
+
+            let kompaniTable = document.querySelector('#ForelderTable tbody');
+
+            kompaniData.forEach(forelder_barn => {
+            let row = kompaniTable.insertRow();
+                row.insertCell().textContent = forelder_barn.forelder_username;
+                row.insertCell().textContent = forelder_barn.barn_username;
+                row.setAttribute('data-barn-firstname', forelder_barn.barn_firstname);
+
+                row.addEventListener('click', () => {
+                    showUserDetails(forelder_barn);
+                });
+            });
+        }
+
+        function showUserDetails(forelder_barn) {
+            document.getElementById('userDetails').style.display = 'block';
+            document.getElementById('username').value = forelder_barn.barn_username;
+            document.getElementById('firstname').value = forelder_barn.barn_firstname;
+            document.getElementById('lastname').value = forelder_barn.barn_lastname; 
+            document.getElementById('cell').value = forelder_barn.barn_mobile; 
+            document.getElementById('cancel').addEventListener('click', () => {
+               document.getElementById('userDetails').style.display = 'none';
+            });
+        }
+
+
+        getForelder();
+
+    </script>
+</body>
+</html>

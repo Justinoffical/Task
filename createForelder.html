@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form id="createForelderForm" action='/create-forelder' method="POST">
+        <div>
+            <label for="forelder_id">Forelder:</label>
+            <select name="forelder_id" id="forelder_id" required></select>
+        </div>
+        <div>
+            <label for="barn_id">Barn:</label>
+            <select name="barn_id" id="barn_id" required></select>
+        </div>
+        <button type="submit">Add forelder</button>
+    </form>
+
+    <script>
+        // Fetch data from the server and populate the dropdowns
+        async function populateDropdowns() {
+            const forelderSelect = document.getElementById('forelder_id');
+            const barnSelect = document.getElementById('barn_id');
+
+            // Fetch forelder options
+            const forelderOptions = await fetch('/forelder-options');
+            const forelderData = await forelderOptions.json();
+
+            // Fetch barn options
+            const barnOptions = await fetch('/barn-options');
+            const barnData = await barnOptions.json();
+
+            // Populate the dropdowns with options
+            forelderData.forEach(option => {
+                const forelderOption = document.createElement('option');
+                forelderOption.value = option.forelder_id;
+                forelderOption.textContent = option.forelder_username;
+                forelderSelect.appendChild(forelderOption);
+            });
+
+            barnData.forEach(option => {
+                const barnOption = document.createElement('option');
+                barnOption.value = option.barn_id;
+                barnOption.textContent = `${option.barn_firstname} ${option.barn_lastname}`;
+                barnSelect.appendChild(barnOption);
+            });
+        }
+
+        // Call the function to populate dropdowns on page load
+        populateDropdowns();
+    </script>
+</body>
+</html>

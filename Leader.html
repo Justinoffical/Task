@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        a {
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #userDetails {
+            display: none;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #userImage {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        #userForm div {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello Leader</h1>
+    <a href="/loginForm.html">Logout</a>
+    
+    <h1>User Table</h1>
+    <a href="/createUser.html">Add New User</a>
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>Role</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Cell</th>
+                <th>Email</th>
+                <th>Peleton</th>
+                <th>kompani</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div id="userDetails">
+        <img id="userImage" src="/img/profile.webp" alt="User's Picture" />
+        <form id="userForm" action='/userld' method="POST">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" readonly />
+            </div>
+            <div>
+                <label for="firstname">First Name:</label>
+                <input type="text" name="firstname" id="firstname" />
+            </div>
+            <div>
+                <label for="lastname">Last Name:</label>
+                <input type="text" name="lastname" id="lastname" />
+            </div>
+            <div>
+                <label for="cell">Cell:</label>
+                <input type="text" name="cell" id="cell" />
+            </div>
+            <div>
+                <label for="peleton_id">Peleton:</label>
+                <select name="peleton_id" id="peleton_id"> 
+                    <option value="6">No Peleton</option>      
+                    <option value="1">Peleton 1</option>   
+                    <option value="2">Peleton 2</option>                                            
+                    <option value="3">Peleton 3</option>
+                    <option value="4">Peleton 4</option>
+                    <option value="5">Peleton 5</option>
+                </select>
+            </div>
+            <button type="submit">Update User</button>
+            <button type="button" id="cancel">Cancel</button>
+        </form>
+    </div>
+
+    <div id="userDetails">
+        <img id="userImage" src="" alt="User's Picture" />
+        <form id="userForm" action='/user' method="POST">
+            <div>
+                <label for="role_id ">Role:</label>
+                <select name="role_id" id="role_id">       
+                    <option value="1">Admin</option>   
+                    <option value="2">Leader</option>                                            
+                    <option value="3">Soldier</option>
+                    <option value="4">Parent</option>
+                    <option value="5">Child</option>
+                  </select>
+            </div>
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" readonly />
+            </div>
+            <div>
+                <label for="firstname">First Name:</label>
+                <input type="text" name="firstname" id="firstname" />
+            </div>
+            <div>
+                <label for="lastname">Last Name:</label>
+                <input type="text" name="lastname" id="lastname" />
+            </div>
+            <div>
+                <label for="cell">Cell:</label>
+                <input type="text" name="cell" id="cell" />
+            </div>
+            <div>
+                <label for="peleton_id">Peleton:</label>
+                <select name="peleton_id" id="peleton_id"> 
+                    <option value="6">No Peleton</option>        
+                    <option value="1">Peleton 1</option>   
+                    <option value="2">Peleton 2</option>                                            
+                    <option value="3">Peleton 3</option>
+                    <option value="4">Peleton 4</option>
+                    <option value="5">Peleton 5</option>
+                </select>
+            </div>
+            <button type="submit">Update User</button>
+            <button type="button" id="deleteUser">Delete</button>
+            <button type="button" id="cancel">Cancel</button>
+        </form>
+    </div>
+    
+    <h1>Kompani Table</h1>
+    <table id="KompaniTable">
+        <thead>
+            <tr>
+                <th>Kompani</th>
+                <th>Leader</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h1>Peleton Table</h1>
+    <a href="/createPeleton.html">Add New Peleton</a>
+    <table id="PeletonTable">
+        <thead>
+            <tr>
+                <th>Peleton</th>
+                <th>Kompani</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h1>ForelderTable</h1>
+    <table id="ForelderTable">
+        <thead>
+            <tr>
+                <th>Forelder</th>
+                <th>Barn</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        async function getUsers() {
+            let response = await fetch('/users');
+            let users = await response.json();
+
+            let userTable = document.querySelector('#userTable tbody');
+
+            users.forEach(user => {
+                let row = userTable.insertRow();
+                row.insertCell().textContent = user.role;
+                row.insertCell().textContent = user.username;
+                row.insertCell().textContent = user.firstname;
+                row.insertCell().textContent = user.lastname;
+                row.insertCell().textContent = user.mobile;
+                row.insertCell().textContent = user.email;
+                row.insertCell().textContent = user.peleton;
+                row.insertCell().textContent = user.kompani;
+                row.addEventListener('click', () => {
+                    showUserDetails(user);
+                });
+            });
+        }
+
+        function showUserDetails(user) {
+            document.getElementById('userDetails').style.display = 'block';
+            document.getElementById('username').value = user.username;
+            document.getElementById('firstname').value = user.firstname;
+            document.getElementById('lastname').value = user.lastname;
+            document.getElementById('cell').value = user.mobile;
+
+            if ('peleton_id' in user) {
+                document.getElementById('peleton_id').value = user.peleton_id;
+            } else {
+                document.getElementById('peleton_id').value = '6';
+            }
+            document.getElementById('cancel').addEventListener('click', () => {
+            document.getElementById('userDetails').style.display = 'none';
+        });
+        }
+
+        getUsers();
+
+        
+        async function getKompani() {
+            let response = await fetch('/kompani');
+            let kompaniData = await response.json();
+
+            let kompaniTable = document.querySelector('#KompaniTable tbody');
+
+            kompaniData.forEach(kompani => {
+            let row = kompaniTable.insertRow();
+                row.insertCell().textContent = kompani.kompaniname;
+                row.insertCell().textContent = kompani.leader_username;
+            });
+        }
+
+        getKompani();
+
+        async function getPeleton() {
+            let response = await fetch('/peleton'); 
+            let kompaniData = await response.json();
+
+            let kompaniTable = document.querySelector('#PeletonTable tbody');
+
+            kompaniData.forEach(peleton => {
+            let row = kompaniTable.insertRow();
+                row.insertCell().textContent = peleton.peleton;
+                row.insertCell().textContent = peleton.kompani_name;
+            });
+        }
+
+        getPeleton();
+
+        async function getForelder() {
+            let response = await fetch('/forelder'); 
+            let kompaniData = await response.json();
+
+            let kompaniTable = document.querySelector('#ForelderTable tbody');
+
+            kompaniData.forEach(forelder_barn => {
+            let row = kompaniTable.insertRow();
+                row.insertCell().textContent = forelder_barn.forelder_username;
+                row.insertCell().textContent = forelder_barn.barn_username;
+            });
+        }
+
+        getForelder();
+
+    </script>
+</body>
+</html>
